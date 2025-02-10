@@ -1,0 +1,50 @@
+
+ <%- layout("/layouts/boilerplate") %>
+<body>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <!-- Card Layout -->
+        <div class="card">
+          <!-- Image Section -->
+          <!-- <img src="<%= listing.image.url %>" class="card-img-top img-fluid rounded" style="height: 20rem; width: 100%; object-fit: cover;" alt="Listing Image"> -->
+          <div class="position-relative">
+            <img src="<%= listing.image.url %>" class="card-img-top img-fluid rounded" style="height: 20rem; width: 100%; object-fit: cover;" alt="Listing Image">
+            <a href="<%= listing.image.url %>" download="<%= listing.image.originalname %>" class="btn btn-primary btn-sm position-absolute bottom-0 end-0 m-3">
+              <i class="fas fa-download"></i> Download
+            </a>
+          </div>
+                 
+          <!-- Card Body -->
+          <div class="card-body">
+            <h2 class="card-title  mb-4">Listing Details</h2>
+
+            <!-- Listing Details (without borders) -->
+            <div class="listing-details">
+              <p><strong>Title:</strong> <%= listing.title %></p>
+              <p><strong>Description:</strong> <%= listing.description %></p>
+              <p><strong>Price:</strong> &#8377; <%= listing.price.toLocaleString("en-IN") %></p>
+              <p><strong>Location:</strong> <%= listing.location %></p>
+              <p><strong>Country:</strong> <%= listing.country %></p>
+            </div>
+
+            <!-- Action Buttons (beside each other) -->
+          
+
+            <div class="mt-3">
+              <div class="d-block d-md-inline">
+                <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary me-2 mb-3 mb-md-0">Edit the Listing</a>
+              </div>
+              <div class="d-block d-md-inline">
+                <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE" class="d-inline">
+                  <button type="submit" class="btn btn-danger d-block d-md-inline">Delete Listing</button>
+                </form>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

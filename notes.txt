@@ -1,0 +1,4 @@
+num = 1234
+
+let newnum = num.toLocalString("en-IN");
+{newnum = 1,234}

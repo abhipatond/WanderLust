@@ -1,0 +1,19 @@
+<% layout("/layouts/boilerplate") -%>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card text-center border-danger">
+        <div class="card-header bg-danger text-white">
+          <h4>Error <%= statusCode || 500 %></h4>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title text-danger">Oops! Something went wrong.</h5>
+          <p class="card-text"><%= message || "An unexpected error occurred." %></p>
+          <a href="/listings" class="btn btn-primary">Go Back to Listings</a>
+          <a href="/" class="btn btn-secondary">Home</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
