@@ -8,6 +8,8 @@ const ejsMate = require('ejs-mate');
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema } = require("./schema.js");
+const Review = require("./models/Review.js");
+
 
 
 app.set("view engine", "ejs");
@@ -205,6 +207,36 @@ app.delete("/listings/:id", wrapAsync(async (req,res)=>{
    console.log(deltedListing);
    res.redirect("/listings");
 }));
+
+
+
+//Reviews Section
+//Create Review Route
+
+app.post("/listings/:id/reviews", async (req, res) => {
+    try {
+        const { id } = req.params;  // Extract listing ID from URL
+        console.log(id);
+        const newReview = new Review(req.body.review); // Create a new review
+        console.log(newReview);
+
+        // Find the listing and push the new review into its reviews array
+        const listing = await Listing.findById(id);
+        if (!listing) {
+            return res.status(404).send("Listing not found");
+        }
+
+        listing.reviews.push(newReview); // Add review to listing
+        await newReview.save(); // Save the review in the database
+        await listing.save(); // Save the updated listing
+
+        console.log("New Review Added:", newReview);
+        res.redirect(`/listings/${id}/show`); // Redirect to the listing page after review submission
+    } catch (error) {
+        console.error("Error adding review:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
 
 
 /* Connection to MongoDb*/
